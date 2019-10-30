@@ -4,12 +4,30 @@ let mirrors = import ./mirrors.nix; in
 
 { url ? builtins.head urls
 , urls ? []
-, sha256
+, hash ? "" # an SRI hash
+
+# Legacy hash specification
+, sha1 ? "", sha256 ? "", sha512 ? ""
+, outputHash ?
+    if hash != "" then hash else if sha512 != "" then sha512 else if sha1 != "" then sha1 else sha256
+, outputHashAlgo ?
+    if hash != "" then "" else if sha512 != "" then "sha512" else if sha1 != "" then "sha1" else "sha256"
 , name ? baseNameOf (toString url)
 }:
 
+let
+  hash_ =
+    if hash != "" then { outputHashAlgo = null; outputHash = hash; }
+    else if (outputHash != "" && outputHashAlgo != "") then { inherit outputHashAlgo outputHash; }
+    else if sha512 != "" then { outputHashAlgo = "sha512"; outputHash = sha512; }
+    else if sha256 != "" then { outputHashAlgo = "sha256"; outputHash = sha256; }
+    else if sha1   != "" then { outputHashAlgo = "sha1";   outputHash = sha1; }
+    else throw "fetchurlBoot requires a hash for fixed-output derivation: ${url}";
+in
+
 import <nix/fetchurl.nix> {
-  inherit system sha256 name;
+  inherit system name;
+  inherit (hash_) outputHash outputHashAlgo;
 
   url =
     # Handle mirror:// URIs. Since <nix/fetchurl.nix> currently
