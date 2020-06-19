@@ -81,6 +81,19 @@ in {
       llvmPackages = pkgs.llvmPackages_10;
       libffi = pkgs.libffi;
     };
+    ghcLinearTypes20191220 = callPackage ../development/compilers/ghc/linear-types-20191220.nix {
+      bootPkgs = packages.ghc863Binary;
+      inherit (buildPackages.python3Packages) sphinx;
+      buildLlvmPackages = buildPackages.llvmPackages_6;
+      llvmPackages = pkgs.llvmPackages_6;
+    };
+    ghcLinearTypesSubmission = callPackage ../development/compilers/ghc/linear-types-submission.nix {
+      bootPkgs = packages.ghc883;
+      inherit (buildPackages.python3Packages) sphinx;
+      buildLlvmPackages = buildPackages.llvmPackages_10;
+      llvmPackages = pkgs.llvmPackages_10;
+      libffi = pkgs.libffi;
+    };
     ghcjs = compiler.ghcjs86;
     ghcjs86 = callPackage ../development/compilers/ghcjs-ng {
       bootPkgs = packages.ghc865;
