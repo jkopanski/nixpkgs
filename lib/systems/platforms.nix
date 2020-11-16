@@ -203,6 +203,21 @@ rec {
   # Legacy attribute, for compatibility with existing configs only.
   raspberrypi2 = armv7l-hf-multiplatform;
 
+  remarkable2 = {
+    name = "remarkable2";
+    kernelMajor = "3.2"; # Seems that is the value host is using.
+    kernelBaseConfig = "zero-sugar_defconfig";
+    kernelArch = "arm";
+    kernelDTB = true;
+    kernelAutoModules = true;
+    kernelPreferBuiltin = true;
+    kernelTarget = "zImage";
+    gcc = {
+      cpu = "cortex-a7";
+      fpu = "neon-vfpv4";
+    };
+  };
+
   scaleway-c1 = armv7l-hf-multiplatform // {
     gcc = {
       cpu = "cortex-a9";
