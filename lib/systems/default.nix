@@ -55,6 +55,7 @@ rec {
       # Misc boolean options
       useAndroidPrebuilt = false;
       useiOSPrebuilt = false;
+      isRemarkable = false;
 
       # Output from uname
       uname = {
