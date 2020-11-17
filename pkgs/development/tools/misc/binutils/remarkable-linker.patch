@@ -1,0 +1,13 @@
+diff --git a/bfd/elf32-arm.c b/bfd/elf32-arm.c
+index 32b94310f1..acf045841e 100644
+--- a/bfd/elf32-arm.c
++++ b/bfd/elf32-arm.c
+@@ -2260,7 +2260,7 @@ typedef unsigned short int insn16;
+ 
+ /* The name of the dynamic interpreter.  This is put in the .interp
+    section.  */
+-#define ELF_DYNAMIC_INTERPRETER     "/usr/lib/ld.so.1"
++#define ELF_DYNAMIC_INTERPRETER     "/lib/ld-linux-armhf.so.3"
+ 
+ /* FDPIC default stack size.  */
+ #define DEFAULT_STACK_SIZE 0x8000
